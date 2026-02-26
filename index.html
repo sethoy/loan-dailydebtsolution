@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Debt Solution - Short-Term Loans</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background-color: #fff;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo-link {
+            display: inline-block;
+            transition: opacity 0.3s ease;
+        }
+
+        .logo-link:hover {
+            opacity: 0.8;
+        }
+
+        .logo {
+            height: 40px;
+            width: auto;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #e8e8e8 0%, #f5f5f5 100%);
+            padding: 60px 20px 0 20px;
+            /* min-height: 850px; */
+            position: relative;
+            overflow: visible;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: flex-start;
+            height: 100%;
+            /* min-height: 850px; */
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #2d2d2d;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+        }
+
+        .hero-content h1 .highlight {
+            color: #2563eb;
+            font-weight: 700;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            color: #4b5563;
+            margin-bottom: 10px;
+            line-height: 1.65;
+            max-width: 500px;
+        }
+
+        .hero-image-wrapper {
+            position: absolute;
+            bottom: 0;
+            top: 165px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            margin: 0;
+            padding: 0;
+            line-height: 0;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: auto;
+            max-width: 900px;
+            display: block;
+            margin: 0;
+            padding: 0;
+            line-height: 0;
+        }
+
+        /* Form Card */
+        .form-card {
+            background: white;
+            border-radius: 20px;
+            padding: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            height: fit-content;
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Iframe wrapper — clips extra space at the bottom */
+        .form-iframe-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 12px;
+            /* Adjust this height to control where scroll stops */
+            height: 560px;
+        }
+
+        .form-iframe-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            /* Taller than wrapper so content fits, wrapper clips the bottom */
+            height: 700px;
+            border: none;
+        }
+
+        .form-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            position: relative;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: #9ca3af;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step.active {
+            color: #2563eb;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 30px;
+            border-radius: 50%;
+            background: #e5e7eb;
+            color: #9ca3af;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .step.active .step-number {
+            background: #2563eb;
+            color: white;
+        }
+
+        .form-content h3 {
+            font-size: 1rem;
+            margin-bottom: 30px;
+            color: #2d2d2d;
+        }
+
+        .form-group {
+            margin-bottom: 5px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 3px;
+            font-size: 0.95rem;
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 8px 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        .form-group input::placeholder {
+            color: #9ca3af;
+        }
+
+        .continue-btn {
+            width: 100%;
+            padding: 5px;
+            background: #e5e7eb;
+            color: #9ca3af;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: not-allowed;
+            margin-top: 10px;
+        }
+
+        /* How it Works Section */
+        .how-it-works {
+            padding: 10px 20px;
+            background: white;
+            margin-bottom: 60px !important;
+        }
+
+        .how-it-works-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 80px;
+            margin-top: 80px;
+            position: relative;
+        }
+
+        .steps-grid::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 16.666%;
+            right: 16.666%;
+            height: 3px;
+            background: #93c5fd;
+            z-index: 0;
+        }
+
+        .step-item {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-icon-number {
+            width: 50px;
+            height: 50px;
+            background: #2563eb;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.3rem;
+            margin: 0 auto 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-icon-wrapper {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .step-icon-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .step-item h3 {
+            font-size: 1.2rem;
+            color: #2d2d2d;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        /* Credit Score Section */
+        .credit-section {
+            background: #1e40af;
+            padding: 60px 20px 0 20px;
+            color: white;
+            position: relative;
+            overflow: visible;
+        }
+
+        .credit-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: flex-end;
+            position: relative;
+            z-index: 1;
+        }
+
+        .credit-content {
+            padding-bottom: 60px;
+        }
+
+        .credit-content h2 {
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        .credit-content p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .credit-image-wrapper {
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            margin-top: -150px;
+            line-height: 0;
+        }
+
+        .credit-image {
+            width: 100%;
+            height: auto;
+            max-width: 750px;
+            display: block;
+            position: relative;
+            z-index: 2;
+            margin-bottom: 0;
+            line-height: 0;
+        }
+
+        /* Footer */
+        .footer {
+            background: white;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-logo {
+            height: 40px;
+            width: auto;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 968px) {
+            .header {
+                padding: 15px 0;
+            }
+
+            .header-container {
+                padding: 0 15px;
+            }
+
+            .hero-section {
+                padding: 40px 15px 0 15px;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .hero-content {
+                position: relative;
+                min-height: auto;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+                margin-bottom: 15px;
+            }
+
+            .hero-content p {
+                font-size: 1.2rem;
+                margin-bottom: 20px;
+                max-width: 100%;
+            }
+
+            .hero-image-wrapper {
+                position: relative;
+                top: auto;
+                bottom: auto;
+                margin-top: 20px;
+                margin-bottom: 0;
+            }
+
+            .hero-image {
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .form-card {
+                padding: 15px;
+            }
+
+            .form-iframe-wrapper {
+                height: 560px;
+            }
+
+            .form-iframe-wrapper iframe {
+                height: 700px;
+            }
+
+            .how-it-works {
+                padding: 60px 15px;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+                margin-top: 50px;
+            }
+
+            .steps-grid::before {
+                display: none;
+            }
+
+            .step-icon-wrapper {
+                width: 150px;
+                height: 150px;
+            }
+
+            .step-icon-number {
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+            }
+
+            .step-item h3 {
+                font-size: 1.1rem;
+            }
+
+            .credit-section {
+                padding: 50px 15px 0 15px;
+            }
+
+            .credit-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 40px 15px 0 15px;
+            }
+
+            .credit-content {
+                padding-bottom: 30px;
+                text-align: center;
+            }
+
+            .credit-content h2 {
+                font-size: 2rem;
+                margin-bottom: 20px;
+            }
+
+            .credit-content p {
+                font-size: 1.1rem;
+                max-width: 100%;
+            }
+
+            .credit-image-wrapper {
+                margin-top: -60px;
+            }
+
+            .credit-image {
+                max-width: 100%;
+            }
+
+            .footer {
+                padding: 30px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 12px 0;
+            }
+
+            .hero-section {
+                padding: 30px 12px 0 12px;
+            }
+
+            .hero-content h1 {
+                font-size: 1.75rem;
+                margin-bottom: 12px;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+                margin-bottom: 15px;
+            }
+
+            .hero-image-wrapper {
+                margin-top: 15px;
+            }
+
+            .form-card {
+                padding: 12px;
+            }
+
+            .form-iframe-wrapper {
+                height: 560px;
+            }
+
+            .form-iframe-wrapper iframe {
+                height: 700px;
+            }
+
+            .how-it-works {
+                padding: 50px 12px;
+            }
+
+            .steps-grid {
+                gap: 40px;
+                margin-top: 40px;
+            }
+
+            .step-icon-wrapper {
+                width: 120px;
+                height: 120px;
+            }
+
+            .step-icon-number {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            .step-item h3 {
+                font-size: 1rem;
+            }
+
+            .credit-section {
+                padding: 40px 12px 0 12px;
+            }
+
+            .credit-container {
+                padding: 30px 12px 0 12px;
+            }
+
+            .credit-content h2 {
+                font-size: 1.75rem;
+            }
+
+            .credit-content p {
+                font-size: 1rem;
+            }
+
+            .credit-image-wrapper {
+                margin-top: -40px;
+            }
+
+            .logo {
+                height: 30px;
+            }
+
+            .footer {
+                padding: 25px 12px;
+            }
+        }
+
+        /* Extra Small Mobile - iPhone SE and smaller */
+        @media (max-width: 375px) {
+            .hero-section {
+                padding: 30px 8px 0 8px;
+            }
+
+            .hero-content h1 {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+                margin-bottom: 12px;
+            }
+
+            .form-card {
+                padding: 8px;
+                border-radius: 16px;
+                max-width: 100%;
+                overflow: hidden;
+            }
+
+            .form-iframe-wrapper {
+                height: 540px;
+            }
+
+            .form-iframe-wrapper iframe {
+                height: 680px;
+                width: 100%;
+                transform: scale(0.95);
+                transform-origin: top center;
+            }
+
+            .how-it-works {
+                padding: 40px 10px;
+            }
+
+            .steps-grid {
+                gap: 35px;
+                margin-top: 35px;
+            }
+
+            .step-icon-wrapper {
+                width: 100px;
+                height: 100px;
+            }
+
+            .step-icon-number {
+                width: 35px;
+                height: 35px;
+                font-size: 0.95rem;
+                margin-bottom: 20px;
+            }
+
+            .step-item h3 {
+                font-size: 0.95rem;
+            }
+
+            .credit-section {
+                padding: 35px 10px 0 10px;
+            }
+
+            .credit-container {
+                padding: 25px 10px 0 10px;
+            }
+
+            .credit-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .credit-content p {
+                font-size: 0.95rem;
+            }
+
+            .footer {
+                padding: 20px 10px;
+            }
+        }
+
+        /* Samsung Galaxy S8+ and similar */
+        @media (max-width: 414px) and (min-width: 376px) {
+            .form-card {
+                padding: 10px;
+                max-width: 100%;
+            }
+
+            .form-iframe-wrapper {
+                height: 560px;
+            }
+
+            .form-iframe-wrapper iframe {
+                height: 700px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="https://www.dailydebtsolution.com/" class="logo-link" target="_blank" rel="noopener noreferrer">
+                <img src="daily-debt-logo-cropped-300x93.png" alt="Daily Debt Solution" class="logo">
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Short-Term Loans up to <span class="highlight">$5,000</span></h1>
+                <p>Connect with trusted lending partners and access up to $5,000 in personal loan options.</p>
+                <div class="hero-image-wrapper">
+                    <img src="assets/3.png" alt="Happy couple with tablet" class="hero-image">
+                </div>
+            </div>
+
+            <div class="form-card">
+                <script src="https://www.cvtpm.com/iframe/v2.7/js/application.js" id="jsForm" data-id="1425"></script>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section class="how-it-works">
+        <div class="how-it-works-container">
+            <div class="steps-grid">
+                <div class="step-item">
+                    <div class="step-icon-number">1</div>
+                    <div class="step-icon-wrapper">
+                        <img src="assets/4.png" alt="Inquire now" class="step-icon-img">
+                    </div>
+                    <h3>Inquire now, it's easy!</h3>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-icon-number">2</div>
+                    <div class="step-icon-wrapper">
+                        <img src="assets/5.png" alt="Compare rates" class="step-icon-img">
+                    </div>
+                    <h3>Compare lending partners and rates</h3>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-icon-number">3</div>
+                    <div class="step-icon-wrapper">
+                        <img src="assets/6.png" alt="Get loan" class="step-icon-img">
+                    </div>
+                    <h3>Get the loan you need</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Credit Score Section -->
+    <section class="credit-section">
+        <div class="credit-container">
+            <div class="credit-content">
+                <h2>Whatever your credit score, we've got a loan for you!</h2>
+                <p>Don't worry about whether you have perfect credit. Just tell us about your loan and we'll find the right offers for you.</p>
+            </div>
+            <div class="credit-image-wrapper">
+                <img src="assets/2.png" alt="Man checking credit score" class="credit-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <a href="https://www.dailydebtsolution.com/" target="_blank" rel="noopener noreferrer">
+            <img src="daily-debt-logo-cropped-300x93.png" alt="Daily Debt Solution" class="footer-logo">
+        </a>
+    </footer>
+
+    <script>
+        // The form loads inside a cross-origin iframe (cvtpm.com).
+        // We cannot access its internal DOM. The fix is to wrap the iframe
+        // in a clipping container and set its height to stop at "Advertiser Disclosure".
+
+        function wrapFormIframe() {
+            const formCard = document.querySelector('.form-card');
+            if (!formCard) return;
+
+            // Find the iframe injected by the form script
+            const iframe = formCard.querySelector('iframe');
+            if (!iframe) return;
+
+            // Avoid double-wrapping
+            if (iframe.parentElement.classList.contains('form-iframe-wrapper')) return;
+
+            // Create the clipping wrapper
+            const wrapper = document.createElement('div');
+            wrapper.className = 'form-iframe-wrapper';
+
+            // Insert wrapper before iframe, then move iframe inside
+            iframe.parentNode.insertBefore(wrapper, iframe);
+            wrapper.appendChild(iframe);
+
+            // Remove any inline height/styles set by the form script
+            iframe.style.position = 'absolute';
+            iframe.style.top = '0';
+            iframe.style.left = '0';
+            iframe.style.width = '100%';
+            iframe.style.height = '600px';
+            iframe.style.border = 'none';
+        }
+
+        // Watch for the iframe being dynamically added by the form script
+        const observer = new MutationObserver(function(mutations) {
+            for (let mutation of mutations) {
+                for (let node of mutation.addedNodes) {
+                    if (node.tagName === 'IFRAME' || 
+                        (node.querySelector && node.querySelector('iframe'))) {
+                        wrapFormIframe();
+                        return;
+                    }
+                }
+            }
+        });
+
+        const formCard = document.querySelector('.form-card');
+        if (formCard) {
+            observer.observe(formCard, { childList: true, subtree: true });
+        }
+
+        // Also try on load in case iframe is already present
+        document.addEventListener('DOMContentLoaded', wrapFormIframe);
+        window.addEventListener('load', wrapFormIframe);
+    </script>
+ 
+</body>   
+</html>
+
